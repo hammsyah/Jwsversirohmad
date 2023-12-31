@@ -38,6 +38,13 @@
   2020
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
+================================================================================================
+UPDATE BY hamtronik.com
+pisah jadi beberapa file .h agar lebih mudah analisa programnya.
+optimasi sket
+
+31 Desember 2023
+
 
 */
 #include <WebOTA.h>
@@ -76,30 +83,25 @@ RtcDS3231<TwoWire> Rtc(Wire);
 #include "Buzzer.h"
 #include "TampilJws.h"
 
+void Disp_init()
+{
 
-
-void Disp_init() {
-
-  //Disp.start();
-  // timer0_attachInterrupt(refresh);
-  // timer0_write(ESP.getCycleCount() + 40000);
-  //Disp.clear();
-
+  // Disp.start();
+  //  timer0_attachInterrupt(refresh);
+  //  timer0_write(ESP.getCycleCount() + 40000);
+  // Disp.clear();
 }
 
-
-void setup() {
-
-
+void setup()
+{
 
   // Other init code here (WiFi, etc)
 
   // To use a specific port and path uncomment this line
   // Defaults are 8080 and "/webota"
   // webota.init(8888, "/update");
-http://192.168.2.1:8080/webota
-  //http://esp-ota.local:8080/webota
-
+http: // 192.168.2.1:8080/webota
+  // http://esp-ota.local:8080/webota
 
   RtcDateTime now = Rtc.GetDateTime();
   int tahun = now.Year();
@@ -107,17 +109,13 @@ http://192.168.2.1:8080/webota
   int tanggal = now.Day();
   get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
 
-
-
-
-
   //
-  Serial.begin(9600);
+  Serial.begin(115200);
   Disp.start(); // Jalankan library DMDESP
-  //RTC D3231
-   
+  // RTC D3231
+
   mulaiRTC();
-  
+
   pinMode(pin_led, OUTPUT);
   SPIFFS.begin();
 
@@ -132,7 +130,8 @@ http://192.168.2.1:8080/webota
 
   wifiConnect();
 
-  server.on("/", []() {
+  server.on("/", []()
+            {
     server.send_P(200, "text/html", setwaktu);
 
     if (server.hasArg("date")) {
@@ -176,25 +175,21 @@ http://192.168.2.1:8080/webota
       }
       server.send ( 404 , "text", message );
 
-    }
-  });
+    } });
 
   server.on("/toggle", toggleLED);
 
-  server.on("/setwifi", []() {
-    server.send_P(200, "text/html", setwifi);
-  });
+  server.on("/setwifi", []()
+            { server.send_P(200, "text/html", setwifi); });
 
   server.on("/settingwifi", HTTP_POST, handleSettingWifiUpdate);
-  server.on("/setjws", []() {
-    server.send_P(200, "text/html", setjws);
-  });
+  server.on("/setjws", []()
+            { server.send_P(200, "text/html", setjws); });
   server.on("/settingjws", HTTP_POST, handleSettingJwsUpdate);
-  server.on("/setdisplay", []() {
-    server.send_P(200, "text/html", setdisplay);
-  });
+  server.on("/setdisplay", []()
+            { server.send_P(200, "text/html", setdisplay); });
   server.on("/settingdisp", HTTP_POST, handleSettingDispUpdate);
-  server.on ( "/xml", handleXML) ;
+  server.on("/xml", handleXML);
   server.begin();
   Serial.println("HTTP server started");
 
@@ -207,89 +202,84 @@ http://192.168.2.1:8080/webota
 
   UpdateWaktu();
   // Disp_init();
-  //Disp.loop();//BARU
-  //Disp.start(); // Jalankan library DMDESP
+  // Disp.loop();//BARU
+  // Disp.start(); // Jalankan library DMDESP
   Disp.setBrightness(configdisp.cerah);
   branding();
-
 }
 
-
-
-
 ///////////////////////////////////////////loop/////////////
-void loop() {
-
+void loop()
+{
 
   webota.handle();
 
-  //Disp.setDoubleBuffer(true);
+  // Disp.setDoubleBuffer(true);
   Disp.loop(); // Jalankan Disp loop untuk refresh LED
   server.handleClient();
   UpdateWaktu();
 
+  switch (tampilanutama)
+  {
+  case 0:
+    if (configdisp.jpanel == 4)
+    {
+      tampilanjam = 0;
+    }
+    if (configdisp.jpanel == 3)
+    {
+      tampilanjam = 1;
+    }
+    if (configdisp.jpanel == 2)
+    {
+      tampilanjam = 2;
+    }
+    if (configdisp.jpanel == 1)
+    {
+      tampilanjam = 3;
+    }
 
-  switch (tampilanutama) {
-    case 0 :
-      if (config.jpanel == 4 ) {
-        tampilanjam = 0;
-      } if (config.jpanel == 3) {
-        tampilanjam = 1;
-      } if (config.jpanel == 2) {
-        tampilanjam = 2;
-      } if (config.jpanel == 1) {
-        tampilanjam = 3;
-      }
+    tampilan();
+    break;
+  case 1:
+    Iqomahku();
+    break;
 
-
-      tampilan();
-      break;
-    case 1 :
-      Iqomahku();
-      break;
-
-    case 2 :
-      peringatan();
-      break;
-    case 3 :
-      jamciliksholat();
-      break;
+  case 2:
+    peringatan();
+    break;
+  case 3:
+    jamciliksholat();
+    break;
   }
-
-
-
-
 }
 
-
 //----------------------------------------------------------------------
-//MODE TAMPILAN JAM
+// MODE TAMPILAN JAM
 
-void tampilan() {
+void tampilan()
+{
 
-  switch (tampilanjam) {
+  switch (tampilanjam)
+  {
 
-    case 0 :
-      displayku();
-      saatadzan();
-      break;
-    case 1 :
-      displaykutiga();
-      saatadzan();
-      break;
-    case 2 :
-      displaykudua();
-      saatadzan2();
-      break;
-    case 3 :
-      displaykusatu();
-      saatadzan2();
-      break;
+  case 0:
+    displayku();
+    saatadzan();
+    break;
+  case 1:
+    displaykutiga();
+    saatadzan();
+    break;
+  case 2:
+    displaykudua();
+    saatadzan2();
+    break;
+  case 3:
+    displaykusatu();
+    saatadzan2();
+    break;
   }
-
 }
 
 //////////////////////////////////////////////////////display empat panel/////////
-
-
-

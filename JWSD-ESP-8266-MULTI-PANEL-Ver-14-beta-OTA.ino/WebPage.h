@@ -1,6 +1,5 @@
 String message, XML;
 
-
 const char setwaktu[] PROGMEM = R"=====(
 
 <!DOCTYPE HTML>
@@ -112,7 +111,6 @@ function handleServerResponse(){
 
 
 )=====";
-
 
 const char setjws[] PROGMEM = R"=====(
 <html>
@@ -335,8 +333,6 @@ var jpanel = document.getElementById("jpanel").value;
 </html>
 )=====";
 
-
-
 const char setwifi[] PROGMEM = R"=====(
 <html>
 <body bgcolor="#90EE90">
@@ -425,8 +421,6 @@ function setWifi() {
 </html>
 )=====";
 
-
-
 const char setdisplay[] PROGMEM = R"=====(
 
 <!DOCTYPE HTML>
@@ -442,6 +436,10 @@ const char setdisplay[] PROGMEM = R"=====(
 <form id='data_form' name='frmText'>
   <label>Redup<input id="cerah" type='range' name='Cerah' min='18' max='255'>Cerah
   <br>
+
+  <label for="jpanel">Jumlah Panel</label>
+    <input type="number" id="jpanel"/>
+
 </form>
 <br>
 <button onClick="setDisp()"> Simpan </button><span> </span>
@@ -462,7 +460,8 @@ function setDisp() {
   console.log("tombol telah ditekan!");
   
   var cerah = document.getElementById("cerah").value;
-  var datadisp = {cerah:cerah};
+  var jpanel = document.getElementById("jpanel").value;
+  var datadisp = {cerah:cerah, jpanel:jpanel};
 
   var xhr = new XMLHttpRequest();
   var url = "/settingdisp";
@@ -505,6 +504,9 @@ function handleServerResponse(){
    message = xmldoc[0].firstChild.nodeValue;
    document.getElementById('cerah').value=message;
 
+   xmldoc = xmlResponse.getElementsByTagName('rPanel');
+   message = xmldoc[0].firstChild.nodeValue;
+   document.getElementById('jpanel').value=message;
  }
 }
 

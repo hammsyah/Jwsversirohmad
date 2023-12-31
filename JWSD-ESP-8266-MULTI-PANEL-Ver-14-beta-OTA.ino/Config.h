@@ -1,7 +1,8 @@
 // Durasi waktu iqomah
-struct Config {
+struct Config
+{
 
-  int jpanel;
+  // int jpanel;
   int iqmhs;
   int iqmhd;
   int iqmha;
@@ -21,108 +22,127 @@ struct Config {
 const char *fileconfigjws = "/configjws.json";
 Config config;
 
-
 int iqmh;
 int menitiqmh;
 int detikiqmh = 60;
 
-struct ConfigWifi {
+struct ConfigWifi
+{
   char wifissid[64];
   char wifipassword[64];
 };
 const char *fileconfigwifi = "/configwifi.json";
 ConfigWifi configwifi;
 
-
-struct ConfigDisp {
+struct ConfigDisp
+{
   int cerah;
+  int jpanel;
 };
 const char *fileconfigdisp = "/configdisp.json";
 ConfigDisp configdisp;
 
+void LoadDataAwal()
+{
 
-void LoadDataAwal() {
-
-  if (config.jpanel == 0) {
-    config.jpanel = 2;
-
-  }
-
-  if (config.iqmhs == 0) {
+  if (config.iqmhs == 0)
+  {
     config.iqmhs = 12;
   }
 
-  if (config.iqmhd == 0) {
+  if (config.iqmhd == 0)
+  {
     config.iqmhd = 8;
   }
 
-  if (config.iqmha == 0) {
+  if (config.iqmha == 0)
+  {
     config.iqmha = 6;
   }
 
-  if (config.iqmhm == 0) {
+  if (config.iqmhm == 0)
+  {
     config.iqmhm = 5;
   }
 
-  if (config.iqmhi == 0) {
+  if (config.iqmhi == 0)
+  {
     config.iqmhi = 5;
   }
 
-  if (config.durasiadzan == 0) {
+  if (config.durasiadzan == 0)
+  {
     config.durasiadzan = 1;
   }
 
-  if (config.ihti == 0) {
+  if (config.ihti == 0)
+  {
     config.ihti = 2;
   }
 
-  if (config.latitude == 0) {
+  if (config.latitude == 0)
+  {
     config.latitude = -7.42;
   }
 
-  if (config.longitude == 0) {
+  if (config.longitude == 0)
+  {
     config.longitude = 111.008;
   }
 
-  if (config.zonawaktu == 0) {
+  if (config.zonawaktu == 0)
+  {
     config.zonawaktu = 7;
   }
 
-  if (strlen(config.nama) == 0) {
+  if (strlen(config.nama) == 0)
+  {
     strlcpy(config.nama, "www.rokhmad.com", sizeof(config.nama));
   }
 
-  if (strlen(config.info1) == 0) {
+  if (strlen(config.info1) == 0)
+  {
     strlcpy(config.info1, "info1", sizeof(config.info1));
   }
 
-  if (strlen(config.info2) == 0) {
+  if (strlen(config.info2) == 0)
+  {
     strlcpy(config.info2, "info2", sizeof(config.info2));
   }
 
-  if (strlen(config.info3) == 0) {
+  if (strlen(config.info3) == 0)
+  {
     strlcpy(config.info3, "info3", sizeof(config.info3));
   }
 
-  if (strlen(configwifi.wifissid) == 0) {
+  if (strlen(configwifi.wifissid) == 0)
+  {
     strlcpy(configwifi.wifissid, "ESP8266", sizeof(configwifi.wifissid));
   }
 
-  if (strlen(configwifi.wifipassword) == 0) {
+  if (strlen(configwifi.wifipassword) == 0)
+  {
     strlcpy(configwifi.wifipassword, "password", sizeof(configwifi.wifipassword));
   }
 
-  if (configdisp.cerah == 0) {
+  if (configdisp.cerah == 0)
+  {
     configdisp.cerah = 100;
   }
 
+  if (configdisp.jpanel == 0)
+  {
+    configdisp.jpanel = 2;
+  }
 }
 
-void loadDispConfig(const char *fileconfigdisp, ConfigDisp & configdisp) {
+void loadDispConfig(const char *fileconfigdisp, ConfigDisp &configdisp)
+{
 
   File configFileDisp = SPIFFS.open(fileconfigdisp, "r");
 
-  if (!configFileDisp) {
+  if (!configFileDisp)
+  {
     Serial.println("Gagal membuka fileconfigdisp untuk dibaca");
     return;
   }
@@ -134,22 +154,24 @@ void loadDispConfig(const char *fileconfigdisp, ConfigDisp & configdisp) {
   DynamicJsonDocument doc(1024);
   DeserializationError error = deserializeJson(doc, buf.get());
 
-  if (error) {
+  if (error)
+  {
     Serial.println("Gagal parse fileconfigdisp");
     return;
   }
-
+  configdisp.jpanel = doc["jpanel"];
   configdisp.cerah = doc["cerah"];
 
   configFileDisp.close();
-
 }
 
-void loadJwsConfig(const char *fileconfigjws, Config & config) {
+void loadJwsConfig(const char *fileconfigjws, Config &config)
+{
 
   File configFileJws = SPIFFS.open(fileconfigjws, "r");
 
-  if (!configFileJws) {
+  if (!configFileJws)
+  {
     Serial.println("Gagal membuka fileconfigjws untuk dibaca");
     return;
   }
@@ -161,11 +183,12 @@ void loadJwsConfig(const char *fileconfigjws, Config & config) {
   DynamicJsonDocument doc(1024);
   DeserializationError error = deserializeJson(doc, buf.get());
 
-  if (error) {
+  if (error)
+  {
     Serial.println("Gagal parse fileconfigjws");
     return;
   }
-  config.jpanel = doc["jpanel"];
+
   config.iqmhs = doc["iqmhs"];
   config.iqmhd = doc["iqmhd"];
   config.iqmha = doc["iqmha"];
@@ -176,20 +199,20 @@ void loadJwsConfig(const char *fileconfigjws, Config & config) {
   config.latitude = doc["latitude"];
   config.longitude = doc["longitude"];
   config.zonawaktu = doc["zonawaktu"];
-  strlcpy(config.nama, doc["nama"] | "Untuk 1000 Masjid", sizeof(config.nama));    // Set awal Nama
-  strlcpy(config.info1, doc["info1"] | "", sizeof(config.info1));          // Set awal Info1
-  strlcpy(config.info2, doc["info2"] | "", sizeof(config.info2));  // Set awal Info2
+  strlcpy(config.nama, doc["nama"] | "Untuk 1000 Masjid", sizeof(config.nama)); // Set awal Nama
+  strlcpy(config.info1, doc["info1"] | "", sizeof(config.info1));               // Set awal Info1
+  strlcpy(config.info2, doc["info2"] | "", sizeof(config.info2));               // Set awal Info2
   strlcpy(config.info3, doc["info3"] | "", sizeof(config.info3));
   configFileJws.close();
-
 }
 
-
-void loadWifiConfig(const char *fileconfigwifi, ConfigWifi & configwifi) {
+void loadWifiConfig(const char *fileconfigwifi, ConfigWifi &configwifi)
+{
 
   File configFileWifi = SPIFFS.open(fileconfigwifi, "r");
 
-  if (!configFileWifi) {
+  if (!configFileWifi)
+  {
     Serial.println("Gagal membuka fileconfigwifi untuk dibaca");
     return;
   }
@@ -201,7 +224,8 @@ void loadWifiConfig(const char *fileconfigwifi, ConfigWifi & configwifi) {
   DynamicJsonDocument doc(1024);
   DeserializationError error = deserializeJson(doc, buf.get());
 
-  if (error) {
+  if (error)
+  {
     Serial.println("Gagal untuk parse config file");
     return;
   }
@@ -210,5 +234,4 @@ void loadWifiConfig(const char *fileconfigwifi, ConfigWifi & configwifi) {
   strlcpy(configwifi.wifipassword, doc["wifipassword"] | "123456789", sizeof(configwifi.wifipassword));
 
   configFileWifi.close();
-
 }

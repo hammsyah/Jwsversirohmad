@@ -82,12 +82,12 @@ void LoadDataAwal()
 
   if (config.latitude == 0)
   {
-    config.latitude = -7.42;
+    config.latitude = -7.22;
   }
 
   if (config.longitude == 0)
   {
-    config.longitude = 111.008;
+    config.longitude = 111.80;
   }
 
   if (config.zonawaktu == 0)
@@ -97,12 +97,12 @@ void LoadDataAwal()
 
   if (strlen(config.nama) == 0)
   {
-    strlcpy(config.nama, "www.rokhmad.com", sizeof(config.nama));
+    strlcpy(config.nama, "www.hamtronik.com", sizeof(config.nama));
   }
 
   if (strlen(config.info1) == 0)
   {
-    strlcpy(config.info1, "info1", sizeof(config.info1));
+    strlcpy(config.info1, "jws edit script by hamtronik 2024", sizeof(config.info1));
   }
 
   if (strlen(config.info2) == 0)
@@ -117,12 +117,12 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifissid) == 0)
   {
-    strlcpy(configwifi.wifissid, "ESP8266", sizeof(configwifi.wifissid));
+    strlcpy(configwifi.wifissid, "Hamtronik2", sizeof(configwifi.wifissid));
   }
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "password", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "hamtronik77", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)

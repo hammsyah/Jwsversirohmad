@@ -531,11 +531,6 @@ const char setjws[] PROGMEM = R"=====(
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                 xmlResponse = xmlHttp.responseXML;
 
-                xmldoc = xmlResponse.getElementsByTagName('rJpanel');
-                message = xmldoc[0].firstChild.nodeValue;
-                document.getElementById('jpanel').value = message;
-
-
                 xmldoc = xmlResponse.getElementsByTagName('rIqmhs');
                 message = xmldoc[0].firstChild.nodeValue;
                 document.getElementById('iqmhs').value = message;
@@ -594,7 +589,7 @@ const char setjws[] PROGMEM = R"=====(
 
         function setJws() {
             console.log("tombol telah ditekan!");
-            var jpanel = document.getElementById("jpanel").value;
+           
             var iqmhs = document.getElementById("iqmhs").value;
             var iqmhd = document.getElementById("iqmhd").value;
             var iqmha = document.getElementById("iqmha").value;
@@ -609,7 +604,7 @@ const char setjws[] PROGMEM = R"=====(
             var info1 = document.getElementById("info1").value;
             var info2 = document.getElementById("info2").value;
             var datajws = {
-                jpanel: jpanel,
+                
                 iqmhs: iqmhs,
                 iqmhd: iqmhd,
                 iqmha: iqmha,
@@ -1044,7 +1039,7 @@ const char setdisplay[] PROGMEM = R"=====(
                 <input type="number" id="jpanel" min='1' max='4' />
         </form>
         <br>
-        <button class="btn info" onClick="setDisp()"> Simpan </button><span> </span>
+        <button class="btn info" onClick="setDisp()"> Simpan1 </button><span> </span>
         <br>
         <hr>
         <br>
@@ -1132,6 +1127,7 @@ const char setdisplay[] PROGMEM = R"=====(
                 document.getElementById('jpanel').value = message;
             }
         }
+
     </script>
 
 </html>

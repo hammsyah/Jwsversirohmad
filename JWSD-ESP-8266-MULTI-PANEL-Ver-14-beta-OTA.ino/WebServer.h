@@ -216,6 +216,7 @@ void handleSettingDispUpdate()
     //  timer0_attachInterrupt(refresh);
     //  timer0_write(ESP.getCycleCount() + 40000);
     Disp.setBrightness(configdisp.cerah);
+    
   }
 }
 
@@ -296,10 +297,6 @@ void handleSettingWifiUpdate()
 
     server.send(200, "application/json", "{\"status\":\"ok\"}");
     loadWifiConfig(fileconfigwifi, configwifi);
-    // Disp.loop(); // Jalankan Disp loop untuk refresh LED
-
-    // delay(500);
-    //   timer0_attachInterrupt(refresh);
-    //  timer0_write(ESP.getCycleCount() + 40000);
+    ESP.restart();
   }
 }

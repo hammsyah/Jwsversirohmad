@@ -1030,10 +1030,10 @@ const char setdisplay[] PROGMEM = R"=====(
     <body onload='process()'>
         <h1>SETT DISPLAY</h1>
         <hr>
-        <p>Kercerahan: <span id="cerah"> </span> </p>
+        <p>Kercerahan: <span id="demo"> </span> </p>
 
-        <form id='data_form' name='frmText'>
-            <label>Redup<input id="cerah" type='range' name='Cerah' min='2' max='250'>Cerah
+        <form>
+            <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='250'>Cerah
                 <br><br>
                 <label for="jpanel">Jumlah Panel</label>
                 <input type="number" id="jpanel" min='1' max='4' />
@@ -1070,6 +1070,15 @@ const char setdisplay[] PROGMEM = R"=====(
     </body>
 
     <script>
+        var slider = document.getElementById("cerah");
+		var output = document.getElementById("demo");
+		output.innerHTML = slider.value;
+
+		slider.oninput = function() {
+  		output.innerHTML = this.value;
+		}
+        
+        
         function setDisp() {
 
             console.log("tombol telah ditekan!");

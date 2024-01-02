@@ -1,7 +1,7 @@
 ///////////////////////////////////seting panel bro !!////////////////////
 
-#define DISPLAYS_WIDE 4 ///jumlah panel
+#define DISPLAYS_WIDE 6 /// jumlah panel
 #define DISPLAYS_HIGH 1
 
-DMDESP Disp(DISPLAYS_WIDE, DISPLAYS_HIGH);//GANTI
+DMDESP Disp(DISPLAYS_WIDE, DISPLAYS_HIGH); // GANTI
 //////////////////////////////////end-cukup teko kene mumetku-////////////

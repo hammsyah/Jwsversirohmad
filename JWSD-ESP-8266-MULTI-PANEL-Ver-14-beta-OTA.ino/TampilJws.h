@@ -13,6 +13,7 @@ void textCenter(int y, String Msg)
   Disp.drawText(center, y, Msg);
 }
 
+//////////////////////////////////////////////////////display empat panel/////////
 void displayku()
 {
   //

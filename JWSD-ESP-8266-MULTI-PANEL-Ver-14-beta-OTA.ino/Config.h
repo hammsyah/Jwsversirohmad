@@ -117,12 +117,12 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifissid) == 0)
   {
-    strlcpy(configwifi.wifissid, "RAJEKWESI WIFI", sizeof(configwifi.wifissid));
+    strlcpy(configwifi.wifissid, "Hamtronik2", sizeof(configwifi.wifissid));
   }
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "hamtronik7", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)

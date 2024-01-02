@@ -268,7 +268,7 @@ const char setjws[] PROGMEM = R"=====(
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <head>
-        <title>Car Display</title>
+        <title>Hamtronik | JWS </title>
         <style>
             body {
                 width: 97%;
@@ -1033,7 +1033,7 @@ const char setdisplay[] PROGMEM = R"=====(
         <p>Kercerahan: <span id="demo"> </span> </p>
 
         <form>
-            <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='250'>Cerah
+            <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='250' onchange="setDisp()">Cerah
                 <br><br>
                 <label for="jpanel">Jumlah Panel</label>
                 <input type="number" id="jpanel" min='1' max='4' />

@@ -57,9 +57,10 @@ optimasi sket
 #include <RtcDS3231.h>
 RtcDS3231<TwoWire> Rtc(Wire);
 #include <DMDESP.h>
+// #include <FansElectronics_DM12ESP.h>
 #include <fonts/Arial_Black_16.h>
 #include <fonts/angka6x13.h>
-#include <fonts/BigNumber.h>
+#include <fonts/BigNumberFull.h>
 
 #include <fonts/DejaVuSansBold9.h>
 #include <fonts/SystemFont5x7.h>
@@ -112,6 +113,7 @@ http: // 192.168.2.1:8080/webota
   //
   Serial.begin(115200);
   Disp.start(); // Jalankan library DMDESP
+  //  Disp.begin(); 
   // RTC D3231
 
   mulaiRTC();
@@ -216,8 +218,13 @@ void loop()
 
   // Disp.setDoubleBuffer(true);
   Disp.loop(); // Jalankan Disp loop untuk refresh LED
+  //  Disp.update();
   server.handleClient();
   UpdateWaktu();
+ 
+ if(jalan!=1){
+   tampilkanIP();
+ } else {
 
   switch (tampilanutama)
   {
@@ -252,6 +259,7 @@ void loop()
     jamciliksholat();
     break;
   }
+ }  
 }
 
 //----------------------------------------------------------------------

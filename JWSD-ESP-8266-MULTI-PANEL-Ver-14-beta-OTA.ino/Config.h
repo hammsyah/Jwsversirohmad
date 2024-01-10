@@ -97,22 +97,22 @@ void LoadDataAwal()
 
   if (strlen(config.nama) == 0)
   {
-    strlcpy(config.nama, "www.hamtronik.com", sizeof(config.nama));
+    strlcpy(config.nama, "www.hamtronik.com ", sizeof(config.nama));
   }
 
   if (strlen(config.info1) == 0)
   {
-    strlcpy(config.info1, "jws edit script by hamtronik 2024", sizeof(config.info1));
+    strlcpy(config.info1, "jws edit script by hamtronik 2024 ", sizeof(config.info1));
   }
 
   if (strlen(config.info2) == 0)
   {
-    strlcpy(config.info2, "info2", sizeof(config.info2));
+    strlcpy(config.info2, "info2 ", sizeof(config.info2));
   }
 
   if (strlen(config.info3) == 0)
   {
-    strlcpy(config.info3, "info3", sizeof(config.info3));
+    strlcpy(config.info3, "info3 ", sizeof(config.info3));
   }
 
   if (strlen(configwifi.wifissid) == 0)
@@ -122,12 +122,12 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "hamtronik7", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "hamtronik77", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)
   {
-    configdisp.cerah = 100;
+    configdisp.cerah = 2;
   }
 
   if (configdisp.jpanel == 0)

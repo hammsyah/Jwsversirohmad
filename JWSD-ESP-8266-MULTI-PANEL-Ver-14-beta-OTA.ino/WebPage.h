@@ -479,7 +479,7 @@ const char setjws[] PROGMEM = R"=====(
         <hr>
         <br>
 
-        <a style="text-decoration:none" class='button' href="/">Kembali</a>
+        <a style="text-decoration:none" class='button' href="/">Home</a>
         <a style="text-decoration:none" class='button' href="/setwifi">Wifi</a>
         <a style="text-decoration:none" class='button' href="/setdisplay">Display</a>
         <br><br>
@@ -807,7 +807,7 @@ const char setwifi[] PROGMEM = R"=====(
 
         <a style="text-decoration:none" class='button' href="/setdisplay">Display</a>
         <a style="text-decoration:none" class='button' href="/setjws">Jam Sholat</a><br><br><br>
-        <a style="text-decoration:none" class='button' href="/">Kembali</a>
+        <a style="text-decoration:none" class='button' href="/">Home</a>
         <br><br>
         <hr>
         <br><br>
@@ -1043,7 +1043,7 @@ const char setdisplay[] PROGMEM = R"=====(
         <br>
         <hr>
         <br>
-        <a style="text-decoration:none" class='button' href="/">Kembali</a>
+        <a style="text-decoration:none" class='button' href="/">Home</a>
         <a style="text-decoration:none" class='button' href="/setwifi">Wifi</a>
         <a style="text-decoration:none" class='button' href="/setjws">Jam Sholat</a>
         <br><br>

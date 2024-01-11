@@ -321,6 +321,9 @@ void BacaRTC() {
 //-----------------------------------
 // UPDATE WAKTU
 
+
+
+
 void UpdateWaktu() {
 
   static long pM;

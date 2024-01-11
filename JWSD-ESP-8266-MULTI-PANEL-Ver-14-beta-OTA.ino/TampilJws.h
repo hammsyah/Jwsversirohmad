@@ -13,6 +13,7 @@ void textCenter(int y, String Msg)
   Disp.drawText(center, y, Msg);
 }
 
+//////////////////////////////////////////////////////display empat panel/////////
 void displayku()
 {
   //
@@ -50,7 +51,7 @@ void displayku()
 
       // JAM
       //  sprintf(jam, "%02d", rJam);
-      printf(jam, "%02d", rJam);
+      sprintf(jam, "%02d", rJam);
 
       Disp.setFont(BigNumber);
       Disp.drawText(0, 0, jam);

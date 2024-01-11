@@ -14,22 +14,27 @@ void wifiConnect()
   WiFi.disconnect();
   delay(1000);
 
-  Serial.println("Mencoba sambungan ke Hotspot atau Router");
+  Serial.println("Sedang menyambungkan ke Aksespoint");
   WiFi.mode(WIFI_STA);
   WiFi.begin(configwifi.wifissid, configwifi.wifipassword);
   unsigned long startTime = millis();
+   //tampilkan di panel
+   
+
   while (WiFi.status() != WL_CONNECTED)
   {
 
     delay(500);
     Serial.print(".");
-
+    
     digitalWrite(pin_led, !digitalRead(pin_led));
 
     if (millis() - startTime > 20000)
     {
       Serial.println(" ");
+      Disp.clear();
       break;
+      
     }
   }
 
@@ -41,7 +46,9 @@ void wifiConnect()
     Serial.println(WiFi.macAddress());
     Serial.print("IP: ");
     Serial.println(WiFi.localIP());
-  }
+       
+  } 
+  
   else
   {
 
@@ -58,6 +65,51 @@ void wifiConnect()
     Serial.print("IP: ");
     Serial.println(local_ip);
   }
+}
+
+int jalan = 0;
+
+
+void tampilkanIP()
+{
+   Disp.setFont(SystemFont5x7); 
+   Disp.drawText(97, 0, "IP:");
+ String Ipne = WiFi.localIP().toString();
+    int str_len = Ipne.length() + 1;
+    char char_array[str_len];
+    Ipne.toCharArray(char_array, str_len); 
+    static char *nama[] = {char_array};
+    
+    static uint32_t pM;
+    static uint32_t x;
+    static uint32_t Speed = 150;
+    int width = Disp.width();
+    Disp.setFont(SystemFont5x7);
+    int fullScroll = Disp.textWidth(nama[0]) + width;
+    
+    
+        
+        
+        if ((millis() - pM) > Speed)
+        {
+          pM = millis();
+          if (x < fullScroll)
+          {
+            ++x;
+          }
+          else
+          {
+            x = 0;
+            Disp.clear();
+            jalan = 1;
+            
+          }
+
+          Disp.drawText(width - x, 9, nama[0]);
+          
+        }
+    
+
 }
 
 //----------------------------------------------------------------------

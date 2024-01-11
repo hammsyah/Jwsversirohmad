@@ -1325,6 +1325,9 @@ void displaykutiga()
   }
 }
 
+
+
+/*
 //////////////////////////////////////////////////////display dua panel////////////////////////////////
 void displaykudua()
 {
@@ -1804,6 +1807,513 @@ void displaykudua()
       Disp.drawText(73, 0, jam);
       Disp.drawText(90, 0, menit);
       Disp.drawText(108, 0, detik);
+    }
+  }
+}
+
+*/
+
+//////////////////////////////////////////////////////display dua panel////////////////////////////////
+void displaykudua()
+{
+  //
+
+  ///////////////////////
+  ////////////////////JAM////
+  static uint8_t d;
+  // static uint32_t pM;
+  static uint32_t pMJam;
+  static uint32_t pMKedip;
+  uint32_t cM = millis();
+  static boolean kedip;
+
+  
+  d = 0;
+  char jam[3];
+  char menit[3];
+  char detik[3];
+  char harine[18];
+  char tanggale[18];
+
+  if (berhenti == 0 && langkah == 7)
+  {
+
+    // JAM
+      sprintf(jam, "%02d", rJam);
+      Disp.setFont(BigNumber);
+      Disp.drawText(64, 0, jam);
+
+      // MENIT
+      sprintf(menit, "%02d", rMen);
+      Disp.setFont(BigNumber);
+      Disp.drawText(83, 0, menit);
+    
+    
+    if (cM - pMJam >= 1000)
+    {
+      pMJam = cM;
+      d++;
+
+      
+
+      
+      sprintf(harine, "%s", weekDay[rHar]);
+      Disp.setFont(Font4x6);
+      
+      sprintf(tanggale, "%02d-%s", rTgl, monthYear2[rBul]);
+      Disp.setFont(Font4x6);
+    
+
+      // KEDIP DETIK
+
+      if (millis() - pMKedip >= 500)
+      {
+        pMKedip = millis();
+        kedip = !kedip;
+        if (kedip)
+        {
+          Disp.drawRect(79, 3, 80, 5, 1, 1); // koordinat titik dua
+          Disp.drawRect(79, 9, 80, 11, 1, 1);
+        }
+        else
+        {
+
+          Disp.drawRect(77, 0, 82, 10, 0, 0); // koordinat titik dua
+          Disp.drawRect(77, 9, 80, 11, 0, 0);
+        }
+      
+      
+      }
+
+      
+
+      if (rDet == 30)
+      {
+        // langkah = 1;
+        // berhenti = 0;
+        // Disp.clear();
+      }
+    }
+
+    /////////////////
+
+    int tahun = rTah;
+    int bulan = rBul;
+    int tanggal = rTgl;
+    static uint8_t i;
+    static uint32_t pMz;
+    uint32_t cMz = millis();
+
+    char sholat[7];
+    char jamx[5];
+    char TimeNamev2[][8] = {" SUBUH ", "TERBIT", "DZUHUR ", " ASHAR ", "TRBNM", "MAGHRB", " ISYA' "};
+    int hours, minutes;
+    int x;
+    // set_calc_method(Karachi);
+    // set_asr_method(Shafii);
+    // set_high_lats_adjust_method(AngleBased);
+    // set_fajr_angle(20);
+    // set_isha_angle(18);
+
+    ///////////sholat
+
+    if (cMz - pMz >= 50)
+    {
+
+      pMz = cMz;
+      
+      if (i == 4)
+      {
+        i = 5; // Abaikan Terbenam
+      }
+
+      get_float_time_parts(times[i], hours, minutes);
+
+      minutes = minutes + config.ihti;
+
+      if (minutes >= 60)
+      {
+        minutes = minutes - 60;
+        hours++;
+      }
+      String sholat = TimeNamev2[i];
+
+      ////////////////dinamis////////////////////////////
+      static uint8_t y;
+      static uint8_t dy;
+      static uint32_t pMy;
+      uint32_t cMy = millis();
+
+      static uint32_t pMKedipy;
+      static boolean kedipy;
+
+      if (cMy - pMy > 3)
+      { // kecepatannya jatuh
+
+        if (dy == 0 and y < 31)
+        {
+          pMy = cMy;
+
+          y++;
+        }
+
+        if (dy == 1 and y >= 0)
+        {
+          pMy = cMy;
+          y--;
+        }
+      }
+
+      if (cMy - pMy > 5000 and y == 31)
+      {
+        dy = 1;
+        i++;
+      }
+      if (dy == 1)
+      {
+        dy = 0;
+        y = 0;
+        // Disp.clear();
+      }
+
+      ////////////////////
+
+      sprintf(jamx, "%02d:%02d", hours, minutes);
+      Disp.setFont(Font4x6);
+      Disp.drawText(97, y - 32, sholat);
+      Disp.setFont(DejaVuSansBold9);
+      Disp.drawText(100, y - 23, jamx);
+
+      if (i >= 7)
+      {
+        get_float_time_parts(times[0], hours, minutes);
+        minutes = minutes + config.ihti;
+        if (minutes < 11)
+        {
+          minutes = 60 - minutes;
+          hours--;
+        }
+        else
+        {
+          minutes = minutes - 10;
+        }
+        // Disp.clear();
+
+        sprintf(jamx, "%02d:%02d", hours, minutes);
+        Disp.setFont(Font4x6);
+
+        Disp.drawText(97, y - 32, " IMSAK");
+        Disp.setFont(DejaVuSansBold9);
+        Disp.drawText(100, y - 23, jamx);
+      }
+
+      if (i > 7)
+      {
+        i = 0;
+        berhenti = 0;
+        if (rMen == 0 || rMen == 10 || rMen == 20 || rMen == 30 || rMen == 40 || rMen == 50)
+        {
+          Disp.clear();
+          langkah = 1;
+        }
+        else if (rMen == 2 || rMen == 12 || rMen == 22 || rMen == 32 || rMen == 42 || rMen == 52)
+        {
+          Disp.clear();
+          langkah = 2;
+        }
+        else if (rMen == 4 || rMen == 14 || rMen == 24 || rMen == 34 || rMen == 44 || rMen == 54)
+        {
+          Disp.clear();
+          langkah = 3;
+        }
+        else if (rMen == 6 || rMen == 16 || rMen == 26 || rMen == 36 || rMen == 46 || rMen == 56)
+        {
+          Disp.clear();
+          langkah = 5;
+        }
+        else if (rMen == 8 || rMen == 18 || rMen == 28 || rMen == 38 || rMen == 48 || rMen == 58)
+        {
+          Disp.clear();
+          langkah = 5;
+        }
+        else
+        {
+          langkah = 7;
+        }
+      }
+    }
+  }
+
+
+  /////nama masjid
+  int tahun = rTah;
+  int bulan = rBul;
+  int tanggal = rTgl;
+
+  int width = Disp.width();
+  if (langkah == 1 && berhenti == 0)
+  {
+
+    static char *nama[] = {config.nama};
+    static uint32_t pM;
+    static uint32_t x;
+    static uint32_t Speed = 50;
+    width = Disp.width();
+    Disp.setFont(SystemFont5x7);
+    int fullScroll = Disp.textWidth(nama[0]) + width - 64;
+    
+      sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    if ((millis() - pM) > Speed)
+    {
+      pM = millis();
+      if (x < fullScroll)
+      {
+        ++x;
+      }
+      else
+      {
+        x = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 2;
+        // return;
+      }
+
+      Disp.drawText(width - x, 9, nama[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+
+      
+    }
+  }
+  /////info1
+  // int width = Disp.width();
+  if (langkah == 2 && berhenti == 0)
+  {
+
+    static char *info1[] = {config.info1};
+    static uint32_t pM;
+    static uint32_t x;
+    static uint32_t Speed = 50;
+    width = Disp.width();
+    Disp.setFont(SystemFont5x7);
+    int fullScroll = Disp.textWidth(info1[0]) + width - 64;
+    
+      sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    
+    if ((millis() - pM) > Speed)
+    {
+      pM = millis();
+      if (x < fullScroll)
+      {
+        ++x;
+      }
+      else
+      {
+        x = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 3;
+        // return;
+      }
+
+      Disp.drawText(width - x, 9, info1[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+    }
+  }
+
+  /////info2
+  // int width = Disp.width();
+  if (langkah == 3 && berhenti == 0)
+  {
+
+    static char *info2[] = {config.info2};
+    static uint32_t pMw;
+    static uint32_t xs;
+    static uint32_t Speed = 50;
+    width = Disp.width();
+    Disp.setFont(SystemFont5x7);
+    int fullScroll = Disp.textWidth(info2[0]) + width - 64;
+    
+     sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    if ((millis() - pMw) > Speed)
+    {
+      pMw = millis();
+      if (xs < fullScroll)
+      {
+        ++xs;
+      }
+      else
+      {
+        xs = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 5;
+        // return;
+      }
+
+      Disp.drawText(width - xs, 9, info2[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+      
+    }
+  }
+
+  /////info2
+  // int width = Disp.width();
+  if (langkah == 4 && berhenti == 0)
+  {
+
+    static char *info2[] = {config.info2};
+    static uint32_t pMw;
+    static uint32_t xs;
+    static uint32_t Speed = 50;
+    width = Disp.width();
+    Disp.setFont(SystemFont5x7);
+    int fullScroll = Disp.textWidth(info2[0]) + width - 64;
+    
+      sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    if ((millis() - pMw) > Speed)
+    {
+      pMw = millis();
+      if (xs < fullScroll)
+      {
+        ++xs;
+      }
+      else
+      {
+        xs = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 5;
+        // return;
+      }
+
+      Disp.drawText(width - xs, 9, info2[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+    }
+  }
+
+  /////////tanggalku///////////
+  static uint8_t dtgl;
+  static char hari[8];
+  static char tanggalan[18];
+  static char tanggaladz[18];
+  static char tanggalanhij[18];
+  static uint32_t pMtgl;
+  static uint32_t pMtglhij;
+  static uint32_t pMadz;
+  uint32_t cMtgl = millis();
+  ///////////////////////////////////static uint32_t datane;
+
+  /////running tanggal masehi
+  static uint32_t xtgl;
+  static uint32_t Speedtgl = 50;
+  // int width = Disp.width();
+  if (langkah == 5 && berhenti == 0)
+  {
+
+    // Disp.setFont(SystemFont5x7);
+    sprintf(tanggalan, "%s %s %02d %s %02d", weekDay[rHar], namaHariPasaran[tanggalJawa.pasaran], rTgl, monthYear[rBul], rTah); /// bulannya tulisn
+    int fullScrolltgl = Disp.textWidth(tanggalan) + width - 64;
+    
+      sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    
+    if ((millis() - pMtgl) > Speedtgl)
+    {
+      pMtgl = millis();
+      if (xtgl < fullScrolltgl)
+      {
+        ++xtgl;
+      }
+      else
+      {
+        langkah = 6;
+        xtgl = 0;
+        // Disp.clear();
+      }
+
+      Disp.drawText(width - xtgl, 9, tanggalan);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+    }
+  }
+  /////running tanggal hijiriyah
+
+  uint32_t cMtglhij = millis();
+  static uint32_t xtglhij;
+  static uint32_t Speedtglhij = 50;
+  // int width = Disp.width();
+  if (langkah == 6 && berhenti == 0)
+  {
+    // islam();
+    // Disp.setFont(SystemFont5x7);
+    sprintf(tanggalanhij, "%02d %s %02dH", tanggalHijriah.tanggal, namaBulanHijriah[tanggalHijriah.bulan - 1], tanggalHijriah.tahun);
+    int fullScrolltglhij = Disp.textWidth(tanggalanhij) + width - 64;
+    
+     sprintf(menit, "%02d:", rMen);
+      sprintf(jam, "%02d:", rJam);
+      sprintf(detik, "%02d  ", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(73, 0, jam);
+      Disp.drawText(90, 0, menit);
+      Disp.drawText(108, 0, detik);
+    
+    if ((millis() - pMtglhij) > Speedtgl)
+    {
+      pMtglhij = millis();
+      if (xtglhij < fullScrolltglhij)
+      {
+        ++xtglhij;
+      }
+      else
+      {
+        Disp.clear();
+        // Disp.drawFilledRect(128, 15, 0, 0, 0);
+        langkah = 7;
+        xtglhij = 0;
+        // Disp.clear();
+      }
+      // Disp.drawFilledRect(128, 15, 0, 0, 0);
+      Disp.drawText(width - xtglhij, 9, tanggalanhij);
+      Disp.drawFilledRect(64, 15, 0, 0, 0);
+      
     }
   }
 }
@@ -2309,26 +2819,7 @@ void displaykusatu()
 
 */
 
-void TeksJalan(int y, uint8_t kecepatan, char *teks[]) {
 
-  static uint32_t pM;
-  static uint32_t x;
-  int width = Disp.width();
-  Disp.setFont(SystemFont5x7);
-  int fullScroll = Disp.textWidth(teks[0]) + width;
-  if((millis() - pM) > kecepatan) { 
-    pM = millis();
-    if (x < fullScroll) {
-      ++x;
-    } else {
-      x = 0;
-      return;
-    }
-    Disp.drawText(width - x, y, teks[0]);
-  }  
-
-
-}
 
 
 void displaykusatu()

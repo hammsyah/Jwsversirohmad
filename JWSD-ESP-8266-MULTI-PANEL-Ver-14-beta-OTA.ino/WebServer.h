@@ -268,7 +268,7 @@ void handleSettingDispUpdate()
     //  timer0_attachInterrupt(refresh);
     //  timer0_write(ESP.getCycleCount() + 40000);
     Disp.setBrightness(configdisp.cerah);
-    
+    Disp.clear();
   }
 }
 

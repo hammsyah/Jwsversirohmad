@@ -132,7 +132,7 @@ void LoadDataAwal()
 
   if (configdisp.jpanel == 0)
   {
-    configdisp.jpanel = 1;
+    configdisp.jpanel = 3;
   }
 }
 

@@ -74,7 +74,7 @@ void tampilkanIP()
 {
    Disp.setFont(SystemFont5x7); 
    Disp.drawText(97, 0, "IP:");
- String Ipne = WiFi.localIP().toString();
+   String Ipne = WiFi.localIP().toString();
     int str_len = Ipne.length() + 1;
     char char_array[str_len];
     Ipne.toCharArray(char_array, str_len); 
@@ -85,7 +85,7 @@ void tampilkanIP()
     static uint32_t Speed = 150;
     int width = Disp.width();
     Disp.setFont(SystemFont5x7);
-    int fullScroll = Disp.textWidth(nama[0]) + width;
+    int fullScroll = Disp.textWidth(nama[0]) + width-64;
     
     
         

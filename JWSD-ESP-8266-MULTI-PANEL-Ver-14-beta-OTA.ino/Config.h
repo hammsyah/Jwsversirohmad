@@ -117,22 +117,22 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifissid) == 0)
   {
-    strlcpy(configwifi.wifissid, "Hamtronik2", sizeof(configwifi.wifissid));
+    strlcpy(configwifi.wifissid, "RAJEKWESI WIFI", sizeof(configwifi.wifissid));
   }
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "hamtronik77", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)
   {
-    configdisp.cerah = 2;
+    configdisp.cerah = 1;
   }
 
   if (configdisp.jpanel == 0)
   {
-    configdisp.jpanel = 2;
+    configdisp.jpanel = 1;
   }
 }
 

@@ -321,7 +321,17 @@ void BacaRTC() {
 //-----------------------------------
 // UPDATE WAKTU
 
+void hitungjadwal()
+{
+  set_calc_method(Karachi);
+  set_asr_method(Shafii);
+  set_high_lats_adjust_method(AngleBased);
+  set_fajr_angle(20);
+  set_isha_angle(18);
 
+  get_prayer_times(rTah, rBul, rTgl, config.latitude, config.longitude, config.zonawaktu, times);
+
+}
 
 
 void UpdateWaktu() {
@@ -334,6 +344,8 @@ void UpdateWaktu() {
     d++;
     if (d < 2) {
       BacaRTC();
+      hitungjadwal();
+      islam();
   //    JadwalSholat();
   //    TanggalHijriah();
     } else if (d < 60) { // Update setiap 60 detik

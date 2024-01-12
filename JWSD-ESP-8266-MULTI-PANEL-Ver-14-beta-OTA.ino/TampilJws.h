@@ -663,6 +663,7 @@ void displaykutiga()
   char tanggale[18];
   char tahune[18];
 
+/*
   if (berhenti == 0)
   {
 
@@ -739,6 +740,7 @@ void displaykutiga()
     }
   }
 
+*/
   /////////////////
 
   int tahun = rTah;
@@ -753,11 +755,11 @@ void displaykutiga()
   char TimeNamev2[][9] = {"SUBUH ", "TERBIT", "DZUHUR ", "ASHAR  ", "TRBNM ", "MAGHRIB", " ISYA'  "};
   int hours, minutes;
   int x;
-  set_calc_method(Karachi);
-  set_asr_method(Shafii);
-  set_high_lats_adjust_method(AngleBased);
-  set_fajr_angle(20);
-  set_isha_angle(18);
+  // set_calc_method(Karachi);
+  // set_asr_method(Shafii);
+  // set_high_lats_adjust_method(AngleBased);
+  // set_fajr_angle(20);
+  // set_isha_angle(18);
 
   ///////////sholat
 
@@ -765,11 +767,7 @@ void displaykutiga()
   {
 
     pMz = cMz;
-    // Disp.clear();
-
-    // if (i == 1) {
-    //   i = 2; // Abaikan Terbit
-    //  }
+    
     if (i == 4)
     {
       i = 5; // Abaikan Terbenam
@@ -859,7 +857,7 @@ void displaykutiga()
       if (i >= 8)
       {
         i = 0;
-        // langkah = 1;
+        langkah = 1;
       }
     }
   }
@@ -880,28 +878,11 @@ void displaykutiga()
     width = Disp.width();
     Disp.setFont(SystemFont5x7);
     int fullScroll = Disp.textWidth(nama[0]) + width - 32;
-    if ((millis() - pM) > Speed)
-    {
-      pM = millis();
-      if (x < fullScroll)
-      {
-        ++x;
-      }
-      else
-      {
-        x = 0;
-        // Disp.clear();
-        get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
-        langkah = 2;
-        // return;
-      }
-
-      Disp.drawText(width - x, 9, nama[0]);
-      Disp.drawFilledRect(63, 15, 0, 0, 0);
+    
       // JAM BESAR
       Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
-      Disp.drawRect(47, 9, 48, 11, 1, 1);
-
+      Disp.drawRect(47, 9, 48, 11, 1, 1); 
+          
       sprintf(jam, "%02d", rJam);
       Disp.setFont(BigNumber);
       Disp.drawText(32, 0, jam);
@@ -915,33 +896,26 @@ void displaykutiga()
       sprintf(detik, "%02d", rDet);
       Disp.setFont(SystemFont5x7);
       Disp.drawText(51, 9, detik);
-      ///////
+    
+    if ((millis() - pM) > Speed)
+    {
+      pM = millis();
+      if (x < fullScroll)
+      {
+        ++x;
+      }
+      else
+      {
+        x = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 2;
+        // return;
+      }
 
-      // jam nya kecil
-      //  sprintf(jam, "%02d:", rJam);
-      //  Disp.setFont(SystemFont5x7);
-      //  Disp.drawText(32, 0, jam);
-
-      //  sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
-
-      // tanggal
-      //  sprintf(harine, "%s,", weekDay[rHar]);
-      //  Disp.setFont(Font4x6);
-      //  Disp.drawText(42, -1, harine);
-
-      // sprintf(tanggale, "%02d-%02d", rTgl, rBul);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(81, -1, tanggale);
-
-      // sprintf(tahune, "-%02d", rTah);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(105, -1, tahune);
+      Disp.drawText(width - x, 9, nama[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+            
     }
   }
   /////info1
@@ -956,25 +930,8 @@ void displaykutiga()
     width = Disp.width();
     Disp.setFont(SystemFont5x7);
     int fullScroll = Disp.textWidth(info1[0]) + width - 32;
-    if ((millis() - pM) > Speed)
-    {
-      pM = millis();
-      if (x < fullScroll)
-      {
-        ++x;
-      }
-      else
-      {
-        x = 0;
-        // Disp.clear();
-        get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
-        langkah = 3;
-        // return;
-      }
-
-      Disp.drawText(width - x, 9, info1[0]);
-      Disp.drawFilledRect(63, 15, 0, 0, 0);
-      // JAM BESAR
+    
+    // JAM BESAR
       Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
       Disp.drawRect(47, 9, 48, 11, 1, 1);
       sprintf(jam, "%02d", rJam);
@@ -991,33 +948,26 @@ void displaykutiga()
       Disp.setFont(SystemFont5x7);
       Disp.drawText(51, 9, detik);
       ///////
+    
+    if ((millis() - pM) > Speed)
+    {
+      pM = millis();
+      if (x < fullScroll)
+      {
+        ++x;
+      }
+      else
+      {
+        x = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 3;
+        // return;
+      }
 
-      // jam nya kecil
-      //  sprintf(jam, "%02d:", rJam);
-      // Disp.setFont(SystemFont5x7);
-      //  Disp.drawText(32, 0, jam);
-
-      // sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
-
-      // tanggal
-      //  sprintf(harine, "%s,", weekDay[rHar]);
-      //  Disp.setFont(Font4x6);
-      //  Disp.drawText(42, -1, harine);
-
-      // sprintf(tanggale, "%02d-%02d", rTgl, rBul);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(81, -1, tanggale);
-
-      // sprintf(tahune, "-%02d", rTah);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(105, -1, tahune);
-    }
+      Disp.drawText(width - x, 9, info1[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      }
   }
 
   /////info2
@@ -1032,25 +982,8 @@ void displaykutiga()
     width = Disp.width();
     Disp.setFont(SystemFont5x7);
     int fullScroll = Disp.textWidth(info2[0]) + width - 32;
-    if ((millis() - pMw) > Speed)
-    {
-      pMw = millis();
-      if (xs < fullScroll)
-      {
-        ++xs;
-      }
-      else
-      {
-        xs = 0;
-        // Disp.clear();
-        get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
-        langkah = 4;
-        // return;
-      }
-
-      Disp.drawText(width - xs, 9, info2[0]);
-      Disp.drawFilledRect(63, 15, 0, 0, 0);
-      // JAM BESAR
+    
+    // JAM BESAR
       Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
       Disp.drawRect(47, 9, 48, 11, 1, 1);
       sprintf(jam, "%02d", rJam);
@@ -1067,31 +1000,26 @@ void displaykutiga()
       Disp.setFont(SystemFont5x7);
       Disp.drawText(51, 9, detik);
       ///////
-      // jam nya kecil
-      //   sprintf(jam, "%02d:", rJam);
-      //  Disp.setFont(SystemFont5x7);
-      //  Disp.drawText(32, 0, jam);
+    
+    if ((millis() - pMw) > Speed)
+    {
+      pMw = millis();
+      if (xs < fullScroll)
+      {
+        ++xs;
+      }
+      else
+      {
+        xs = 0;
+        // Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 4;
+        // return;
+      }
 
-      // sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
-
-      // tanggal
-      //  sprintf(harine, "%s,", weekDay[rHar]);
-      // Disp.setFont(Font4x6);
-      //  Disp.drawText(42, -1, harine);
-
-      // sprintf(tanggale, "%02d-%02d", rTgl, rBul);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(81, -1, tanggale);
-
-      // sprintf(tahune, "-%02d", rTah);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(105, -1, tahune);
+      Disp.drawText(width - xs, 9, info2[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+           
     }
   }
 
@@ -1107,25 +1035,8 @@ void displaykutiga()
     width = Disp.width();
     Disp.setFont(SystemFont5x7);
     int fullScroll = Disp.textWidth(info2[0]) + width - 32;
-    if ((millis() - pMw) > Speed)
-    {
-      pMw = millis();
-      if (xs < fullScroll)
-      {
-        ++xs;
-      }
-      else
-      {
-        xs = 0;
-        //  Disp.clear();
-        get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
-        langkah = 5;
-        // return;
-      }
-
-      Disp.drawText(width - xs, 9, info2[0]);
-      Disp.drawFilledRect(63, 15, 0, 0, 0);
-      // JAM BESAR
+    
+    // JAM BESAR
       Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
       Disp.drawRect(47, 9, 48, 11, 1, 1);
       sprintf(jam, "%02d", rJam);
@@ -1141,32 +1052,27 @@ void displaykutiga()
       sprintf(detik, "%02d", rDet);
       Disp.setFont(SystemFont5x7);
       Disp.drawText(51, 9, detik);
-      ///////
-      // jam nya kecil
-      //   sprintf(jam, "%02d:", rJam);
-      //  Disp.setFont(SystemFont5x7);
-      // Disp.drawText(32, 0, jam);
+    
+    if ((millis() - pMw) > Speed)
+    {
+      pMw = millis();
+      if (xs < fullScroll)
+      {
+        ++xs;
+      }
+      else
+      {
+        xs = 0;
+        //  Disp.clear();
+        // get_prayer_times(tahun, bulan, tanggal, config.latitude, config.longitude, config.zonawaktu, times);
+        langkah = 5;
+        // return;
+      }
 
-      // sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
-
-      // tanggal
-      //  sprintf(harine, "%s,", weekDay[rHar]);
-      //  Disp.setFont(Font4x6);
-      //  Disp.drawText(42, -1, harine);
-
-      // sprintf(tanggale, "%02d-%02d", rTgl, rBul);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(81, -1, tanggale);
-
-      // sprintf(tahune, "-%02d", rTah);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(105, -1, tahune);
+      Disp.drawText(width - xs, 9, info2[0]);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+      
     }
   }
 
@@ -1192,6 +1098,25 @@ void displaykutiga()
     Disp.setFont(SystemFont5x7);
     sprintf(tanggalan, "%s %s %02d %s %02d", weekDay[rHar], namaHariPasaran[tanggalJawa.pasaran], rTgl, monthYear[rBul], rTah); /// bulannya tulisn
     int fullScrolltgl = Disp.textWidth(tanggalan) + width - 32;
+    
+    // JAM BESAR
+      Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
+      Disp.drawRect(47, 9, 48, 11, 1, 1);
+      sprintf(jam, "%02d", rJam);
+      Disp.setFont(BigNumber);
+      Disp.drawText(32, 0, jam);
+
+      // MENIT
+      sprintf(menit, "%02d", rMen);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(51, 0, menit);
+
+      // DETIK
+      sprintf(detik, "%02d", rDet);
+      Disp.setFont(SystemFont5x7);
+      Disp.drawText(51, 9, detik);
+      ///////
+    
     if ((millis() - pMtgl) > Speedtgl)
     {
       pMtgl = millis();
@@ -1208,49 +1133,9 @@ void displaykutiga()
 
       Disp.drawText(width - xtgl, 9, tanggalan);
       Disp.drawFilledRect(63, 15, 0, 0, 0);
-      // JAM BESAR
-      Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
-      Disp.drawRect(47, 9, 48, 11, 1, 1);
-      sprintf(jam, "%02d", rJam);
-      Disp.setFont(BigNumber);
-      Disp.drawText(32, 0, jam);
+      
 
-      // MENIT
-      sprintf(menit, "%02d", rMen);
-      Disp.setFont(SystemFont5x7);
-      Disp.drawText(51, 0, menit);
-
-      // DETIK
-      sprintf(detik, "%02d", rDet);
-      Disp.setFont(SystemFont5x7);
-      Disp.drawText(51, 9, detik);
-      ///////
-
-      // jam nya kecil
-      //  sprintf(jam, "%02d:", rJam);
-      //  Disp.setFont(SystemFont5x7);
-      //  Disp.drawText(32, 0, jam);
-
-      // sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
-
-      // tanggal
-      //  sprintf(harine, "%s,", weekDay[rHar]);
-      //  Disp.setFont(Font4x6);
-      //  Disp.drawText(42, -1, harine);
-
-      //  sprintf(tanggale, "%02d-%02d", rTgl, rBul);
-      //  Disp.setFont(Font4x6);
-      // Disp.drawText(81, -1, tanggale);
-
-      // sprintf(tahune, "-%02d", rTah);
-      // Disp.setFont(Font4x6);
-      // Disp.drawText(105, -1, tahune);
+      
     }
   }
   /////running tanggal hijiriyah
@@ -1261,29 +1146,12 @@ void displaykutiga()
   // int width = Disp.width();
   if (langkah == 6 && berhenti == 0)
   {
-    islam();
+    // islam();
     Disp.setFont(SystemFont5x7);
     sprintf(tanggalanhij, "%02d %s %02dH", tanggalHijriah.tanggal, namaBulanHijriah[tanggalHijriah.bulan - 1], tanggalHijriah.tahun);
     int fullScrolltglhij = Disp.textWidth(tanggalanhij) + width - 32;
-    if ((millis() - pMtglhij) > Speedtgl)
-    {
-      pMtglhij = millis();
-      if (xtglhij < fullScrolltglhij)
-      {
-        ++xtglhij;
-      }
-      else
-      {
-        // Disp.clear();
-        Disp.drawFilledRect(128, 15, 0, 0, 0);
-        langkah = 1;
-        xtglhij = 0;
-        Disp.clear();
-      }
-      Disp.drawFilledRect(0, 15, 0, 0, 0);
-      Disp.drawText(width - xtglhij, 9, tanggalanhij);
-      Disp.drawFilledRect(63, 15, 0, 0, 0);
-      // JAM BESAR
+    
+    // JAM BESAR
       Disp.drawRect(47, 3, 48, 5, 1, 1); // koordinat titik dua
       Disp.drawRect(47, 9, 48, 11, 1, 1);
       sprintf(jam, "%02d", rJam);
@@ -1299,23 +1167,31 @@ void displaykutiga()
       sprintf(detik, "%02d", rDet);
       Disp.setFont(SystemFont5x7);
       Disp.drawText(51, 9, detik);
-      ///////
-      // jam nya kecil
-      //   sprintf(jam, "%02d:", rJam);
-      //  Disp.setFont(SystemFont5x7);
-      //  Disp.drawText(32, 0, jam);
 
-      // sprintf(menit, "%02d", rMen);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(50, 0, menit);
-
-      // sprintf(detik, "%02d  ", rDet);
-      // Disp.setFont(SystemFont5x7);
-      // Disp.drawText(34, 0, detik);
+    if ((millis() - pMtglhij) > Speedtgl)
+    {
+      pMtglhij = millis();
+      if (xtglhij < fullScrolltglhij)
+      {
+        ++xtglhij;
+      }
+      else
+      {
+        // Disp.clear();
+        // Disp.drawFilledRect(128, 15, 0, 0, 0);
+        langkah = 1;
+        xtglhij = 0;
+        Disp.clear();
+      }
+      // Disp.drawFilledRect(0, 15, 0, 0, 0);
+      Disp.drawText(width - xtglhij, 9, tanggalanhij);
+      Disp.drawFilledRect(63, 15, 0, 0, 0);
+      
+      
 
       // tanggal
-      sprintf(harine, "%s,", weekDay[rHar]);
-      Disp.setFont(Font4x6);
+      // sprintf(harine, "%s,", weekDay[rHar]);
+      // Disp.setFont(Font4x6);
       // Disp.drawText(42, -1, harine);
 
       // sprintf(tanggale, "%02d-%02d", rTgl, rBul);

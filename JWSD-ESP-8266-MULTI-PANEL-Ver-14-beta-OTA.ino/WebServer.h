@@ -396,7 +396,8 @@ void handleSettingWifiUpdate()
   }
 }
 
-void handleReboot{
+void handleReboot()
+{
   ESP.restart();
 
 }

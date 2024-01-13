@@ -1322,6 +1322,7 @@ const char setdsetting[] PROGMEM = R"=====(
         </form>
         <br>
         <button class="btn info" onClick="setSett()"> Simpan </button><span> </span>
+         <button class="btn danger" onClick="reboot()"> Reboot </button><span> </span>
         <br>
         <hr>
         <br>
@@ -1420,6 +1421,19 @@ const char setdsetting[] PROGMEM = R"=====(
               
 
             }
+        }
+
+         function reboot(){
+            console.log("tombol telah ditekan!");
+            var xhr = new XMLHttpRequest();
+            var url = "/reboot";
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                   console.log(xhr.responseText);
+                }
+            };
+            xhr.open("GET", url, true);
+            xhr.send();
         }
 
     </script>

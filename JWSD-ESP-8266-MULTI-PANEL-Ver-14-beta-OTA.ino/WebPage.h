@@ -1035,11 +1035,13 @@ const char setdisplay[] PROGMEM = R"=====(
         <form>
             <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='250' onchange="setDisp()">Cerah
                 <br><br>
-                <label for="jpanel">Jumlah Panel</label>
-                <input type="number" id="jpanel" min='1' max='4' />
+               <p>Display: <span id='panele'></span> Panel </p>
+               <br>
+               Fungsi Jws untuk: <span id='fungsine'></span> </p>
+
         </form>
         <br>
-        <button class="btn info" onClick="setDisp()"> Simpan1 </button><span> </span>
+       
         <br>
         <hr>
         <br>
@@ -1084,10 +1086,10 @@ const char setdisplay[] PROGMEM = R"=====(
             console.log("tombol telah ditekan!");
 
             var cerah = document.getElementById("cerah").value;
-            var jpanel = document.getElementById("jpanel").value;
+           
             var datadisp = {
                 cerah: cerah,
-                jpanel: jpanel
+               
             };
 
             var xhr = new XMLHttpRequest();
@@ -1130,10 +1132,293 @@ const char setdisplay[] PROGMEM = R"=====(
                 xmldoc = xmlResponse.getElementsByTagName('rCerah');
                 message = xmldoc[0].firstChild.nodeValue;
                 document.getElementById('cerah').value = message;
+                document.getElementById('demo').innerHTML = message;
 
-                xmldoc = xmlResponse.getElementsByTagName('rPanel');
+                           
+                xmldoc = xmlResponse.getElementsByTagName('rPanel2');
+                message = xmldoc[0].firstChild.nodeValue;
+                document.getElementById('panele').innerHTML = message;
+
+                xmldoc = xmlResponse.getElementsByTagName('rFungsi');
+                message = xmldoc[0].firstChild.nodeValue;
+
+                if(message==1){
+                document.getElementById('fungsine').innerHTML = 'Masjid';
+                }else if(message==2){
+                  document.getElementById('fungsine').innerHTML = 'Rumah';
+                }
+            }
+        }
+
+    </script>
+
+</html>
+
+
+)=====";
+
+const char setdsetting[] PROGMEM = R"=====(
+
+<!DOCTYPE HTML>
+<html>
+
+<body bgcolor="#DBF8DC">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <head>
+        <title>Sett global</title>
+        <style>
+            body {
+                width: 97%;
+                text-align: center;
+            }
+
+            input,
+            select,
+            button,
+            textarea {
+                max-width: 100%;
+                margin: 5px;
+                padding: 5px;
+                border-radius: 7px;
+            }
+
+            meter,
+            progress,
+            output {
+                max-width: 100%;
+            }
+
+            h1 {
+                color: grey;
+            }
+
+            .note {
+                color: #555;
+                font-size: 1em;
+            }
+
+            .info {
+                background-color: #eee;
+                border-radius: 3px;
+                padding-top: 17px;
+                margin: 5px;
+            }
+
+            .tombol {
+                background-color: #ccc;
+                margin: 20px;
+                padding: 10px;
+                border-radius: 10px;
+                text-decoration: none;
+            }
+
+            .button {
+                padding: 7px 20px;
+                font-size: 18px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #04AA6D;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 5px #999;
+            }
+
+            .button:hover {
+                background-color: #3e8e41
+            }
+
+            .button:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+            .btn {
+                border: none;
+                color: white;
+                padding: 7px 20px;
+                font-size: 14px;
+                cursor: pointer;
+                border-radius: 10px;
+            }
+
+            .success {
+                background-color: #04AA6D;
+            }
+
+            /* Green */
+            .success:hover {
+                background-color: #46a049;
+            }
+
+            .info {
+                background-color: #2196F3;
+            }
+
+            /* Blue */
+            .info:hover {
+                background: #0b7dda;
+            }
+
+            .warning {
+                background-color: #ff9800;
+            }
+
+            /* Orange */
+            .warning:hover {
+                background: #e68a00;
+            }
+
+            .danger {
+                background-color: #f44336;
+            }
+
+            /* Red */
+            .danger:hover {
+                background: #da190b;
+            }
+
+            .default {
+                background-color: #e7e7e7;
+                color: black;
+            }
+
+            /* Gray */
+            .default:hover {
+                background: #ddd;
+            }
+        </style>
+    </head>
+
+    <body onload='process()'>
+        <h1>SETTING GLOBAL</h1>
+        <h3>Halman khusus Teknisi<h3>
+        <hr>
+         <form>
+           
+                <br><br>
+                                
+               <label for="jpanel">Jumlah Panel:</label>
+                  <select name="cars" id="jpanel">
+                    <option value="1" >1 x 1 Panel</option>
+                    <option value="2" >1 x 2 Panel</option>
+                    <option value="3" >1 x 3 Panel</option>
+                    <option value="4" >1 x 4 Panel</option>
+                  </select>
+                 
+                 <br>
+                 <label for="fungsi">Fungsi JWS:</label>
+                  <select name="cars" id="fungsi">
+                    <option value="1" >Masjid</option>
+                    <option value="2" >Rumah</option>
+                  </select>
+                 
+                  <br>
+
+
+        </form>
+        <br>
+        <button class="btn info" onClick="setSett()"> Simpan </button><span> </span>
+        <br>
+        <hr>
+        <br>
+        <a style="text-decoration:none" class='button' href="/">Home</a>
+        <a style="text-decoration:none" class='button' href="/setwifi">Wifi</a>
+        <a style="text-decoration:none" class='button' href="/setjws">Jam Sholat</a>
+        <br><br>
+        <hr>
+        <br><br>
+        <table align="center">
+            <tr>
+                <td>
+                    <a style="text-decoration:none" href="https://www.youtube.com/hamtronik" class="btn danger"> YOUTUBE </a>
+                </td>
+                <td>
+                    <a style="text-decoration:none" href="https://www.facebook.com/yuliamsyah.adi" class="btn info"> FACEBOOK </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
+                    <a style="text-decoration:none" href="https://www.hamtronik.com" class="btn warning"> HAMTRONIK </a>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </body>
+
+    <script>
+   
+       
+        function setSett() {
+
+            console.log("tombol telah ditekan!");
+
+            var fungsi = document.getElementById("fungsi").value;
+            var jpanel = document.getElementById("jpanel").value;
+            var datasett = {
+                fungsi: fungsi,
+                jpanel: jpanel
+            };
+
+            var xhr = new XMLHttpRequest();
+            var url = "/setting";
+
+            xhr.onreadystatechange = function() {
+                if (this.onreadyState == 4 && this.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify(datasett));
+
+        }
+
+
+
+
+       var xmlHttp = createXmlHttpObject();
+
+        function createXmlHttpObject() {
+            if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            } else {
+                xmlHttp = new ActiveXObject('Microsoft.XMLHTTP'); // code for IE6, IE5
+            }
+            return xmlHttp;
+        }
+
+        function process() {
+            if (xmlHttp.readyState == 0 || xmlHttp.readyState == 4) {
+                xmlHttp.open('PUT', 'xml', true);
+                xmlHttp.onreadystatechange = handleServerResponse;
+                xmlHttp.send(null);
+            }
+
+        }
+
+
+        function handleServerResponse() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                xmlResponse = xmlHttp.responseXML;
+
+                xmldoc = xmlResponse.getElementsByTagName('rFungsi');
+                message = xmldoc[0].firstChild.nodeValue;
+                document.getElementById('fungsi').value = message;
+              
+               
+
+                
+                xmldoc = xmlResponse.getElementsByTagName('rPanel2');
                 message = xmldoc[0].firstChild.nodeValue;
                 document.getElementById('jpanel').value = message;
+               
+              
+
             }
         }
 

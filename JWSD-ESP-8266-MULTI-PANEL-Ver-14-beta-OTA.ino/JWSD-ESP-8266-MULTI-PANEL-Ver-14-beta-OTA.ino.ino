@@ -124,10 +124,10 @@ http: // 192.168.2.1:8080/webota
   loadWifiConfig(fileconfigwifi, configwifi);
   loadJwsConfig(fileconfigjws, config);
   loadDispConfig(fileconfigdisp, configdisp);
-
+  loadSettConfig(fileconfigsett, configsett);
   LoadDataAwal();
 
-  WiFi.hostname("ESP8266");
+  WiFi.hostname("HAMTRONIK_ESP8266");
   WiFi.begin(configwifi.wifissid, configwifi.wifipassword);
 
   wifiConnect();
@@ -183,15 +183,24 @@ http: // 192.168.2.1:8080/webota
 
   server.on("/setwifi", []()
             { server.send_P(200, "text/html", setwifi); });
-
   server.on("/settingwifi", HTTP_POST, handleSettingWifiUpdate);
+  
   server.on("/setjws", []()
             { server.send_P(200, "text/html", setjws); });
   server.on("/settingjws", HTTP_POST, handleSettingJwsUpdate);
+
   server.on("/setdisplay", []()
             { server.send_P(200, "text/html", setdisplay); });
   server.on("/settingdisp", HTTP_POST, handleSettingDispUpdate);
+  
+   server.on("/setdsetting", []()
+            { server.send_P(200, "text/html", setdsetting); });
+  server.on("/setting", HTTP_POST, handleSetting);
+
+  server.on("/reboot", HTTP_GET, handleReboot);
+  
   server.on("/xml", handleXML);
+  
   server.begin();
   Serial.println("HTTP server started");
 
@@ -229,19 +238,19 @@ void loop()
   switch (tampilanutama)
   {
   case 0:
-    if (configdisp.jpanel == 4)
+    if (configsett.jpanel == 4)
     {
       tampilanjam = 0;
     }
-    if (configdisp.jpanel == 3)
+    if (configsett.jpanel == 3)
     {
       tampilanjam = 1;
     }
-    if (configdisp.jpanel == 2)
+    if (configsett.jpanel == 2)
     {
       tampilanjam = 2;
     }
-    if (configdisp.jpanel == 1)
+    if (configsett.jpanel == 1)
     {
       tampilanjam = 3;
     }
@@ -249,14 +258,14 @@ void loop()
     tampilan();
     break;
   case 1:
-    Iqomahku();
+    if(configsett.fungsi==1) Iqomahku();
     break;
 
   case 2:
-    peringatan();
+    if(configsett.fungsi==1) peringatan();
     break;
   case 3:
-    jamciliksholat();
+    if(configsett.fungsi==1) jamciliksholat();
     break;
   }
  }  
@@ -273,19 +282,19 @@ void tampilan()
 
   case 0:
     displayku();
-    saatadzan();
+    if(configsett.fungsi==1) saatadzan();
     break;
   case 1:
     displaykutiga();
-    saatadzan();
+    if(configsett.fungsi==1) saatadzan();
     break;
   case 2:
     displaykudua();
-    saatadzan2();
+    if(configsett.fungsi==1) saatadzan2();
     break;
   case 3:
     displaykusatu();
-    saatadzan2();
+    if(configsett.fungsi==1) saatadzan2();
     break;
   }
 }

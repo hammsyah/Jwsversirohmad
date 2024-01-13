@@ -1748,12 +1748,12 @@ void displaykusatu()
     // JAM
       sprintf(jam, "%02d", rJam);
       Disp.setFont(BigNumber);
-      Disp.drawText(97, 0, jam);
+      Disp.drawText(96, 0, jam);
 
       // MENIT
       sprintf(menit, "%02d", rMen);
       Disp.setFont(BigNumber);
-      Disp.drawText(114, 0, menit);
+      Disp.drawText(115, 0, menit);
     
     if (cM - pMJam >= 1000)
     {
@@ -1881,6 +1881,7 @@ void displaykusatu()
             Disp.drawText(135 - x, 9, sholat);
             Disp.setFont(SystemFont5x7);
             Disp.drawText(175 - x, 9, jamx);
+            Disp.drawFilledRect(95, 15, 0, 0, 0);
 
             if (i >= 7)
             {
@@ -1902,6 +1903,7 @@ void displaykusatu()
               Disp.drawText(135 - x, 9, "IMSAK ");
               Disp.setFont(SystemFont5x7);
               Disp.drawText(175 - x, 9, jamx);
+              Disp.drawFilledRect(95, 15, 0, 0, 0);
             }
             if (i > 7)
             {
@@ -2124,7 +2126,7 @@ void displaykusatu()
       }
 
       Disp.drawText(width - xtgl, 9, tanggalan);
-     
+      Disp.drawFilledRect(95, 15, 0, 0, 0);
     }
   }
   /////running tanggal hijiriyah

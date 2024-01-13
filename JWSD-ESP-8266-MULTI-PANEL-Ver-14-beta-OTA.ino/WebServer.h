@@ -223,6 +223,14 @@ void buildXML()
   XML += configdisp.jpanel;
   XML += "</rPanel>";
 
+   XML += "<rPanel2>";
+  XML += configsett.jpanel;
+  XML += "</rPanel2>";
+
+  XML += "<rFungsi>";
+  XML += configsett.fungsi;
+  XML += "</rFungsi>";
+
   XML += "</t>";
 }
 
@@ -262,13 +270,48 @@ void handleSettingDispUpdate()
     Serial.println("Berhasil mengubah configFileDisp");
     server.send(200, "application/json", "{\"status\":\"ok\"}");
     loadDispConfig(fileconfigdisp, configdisp);
-    // Disp.loop(); // Jalankan Disp loop untuk refresh LED
-    //
-    // delay(500);
-    //  timer0_attachInterrupt(refresh);
-    //  timer0_write(ESP.getCycleCount() + 40000);
+    
     Disp.setBrightness(configdisp.cerah);
     Disp.clear();
+  }
+}
+
+void handleSetting() //setting Panel, setting fungsi untuk rumah atau musola
+{
+
+  // timer0_detachInterrupt();
+
+  String datadsett = server.arg("plain");
+
+  DynamicJsonDocument doc(1024);
+  DeserializationError error = deserializeJson(doc, datadsett);
+  File configFileSett = SPIFFS.open(fileconfigsett, "w");
+  if (!configFileSett)
+  {
+    Serial.println("Gagal membuka Display setting untuk ditulis");
+    return;
+  }
+
+  serializeJson(doc, configFileSett);
+  if (error)
+  {
+    Serial.print(F("deserializeJson() gagal kode sebagai berikut: "));
+    Serial.println(error.c_str());
+    return;
+  }
+  else
+  {
+
+    configFileSett.close();
+    Serial.println("Berhasil mengubah setting Global");
+    server.send(200, "application/json", "{\"status\":\"ok\"}");
+    
+    loadSettConfig(fileconfigsett, configsett);
+    
+    //Disp.setBrightness(configdisp.cerah);
+    // ESP.restart();
+  
+     Disp.clear();
   }
 }
 
@@ -351,4 +394,9 @@ void handleSettingWifiUpdate()
     loadWifiConfig(fileconfigwifi, configwifi);
     ESP.restart();
   }
+}
+
+void handleReboot{
+  ESP.restart();
+
 }

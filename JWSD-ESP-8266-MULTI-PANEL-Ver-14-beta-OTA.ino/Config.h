@@ -42,6 +42,16 @@ struct ConfigDisp
 const char *fileconfigdisp = "/configdisp.json";
 ConfigDisp configdisp;
 
+struct ConfigSett
+{
+  //int cerah;
+  int jpanel;
+  int fungsi;
+};
+
+const char *fileconfigsett = "/configsett.json";
+ConfigSett configsett;
+
 void LoadDataAwal()
 {
 
@@ -117,12 +127,12 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifissid) == 0)
   {
-    strlcpy(configwifi.wifissid, "RAJEKWESI WIFI", sizeof(configwifi.wifissid));
+    strlcpy(configwifi.wifissid, "Hamtronik2", sizeof(configwifi.wifissid));
   }
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "hamtronik77", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)
@@ -132,7 +142,17 @@ void LoadDataAwal()
 
   if (configdisp.jpanel == 0)
   {
-    configdisp.jpanel = 3;
+    configdisp.jpanel = 1;
+  }
+
+  if (configsett.jpanel == 0)
+  {
+    configsett.jpanel = 1;
+  }
+
+  if (configsett.fungsi == 0)
+  {
+    configsett.fungsi = 1;
   }
 }
 
@@ -163,6 +183,35 @@ void loadDispConfig(const char *fileconfigdisp, ConfigDisp &configdisp)
   configdisp.cerah = doc["cerah"];
 
   configFileDisp.close();
+}
+
+void loadSettConfig(const char *fileconfigsett, ConfigSett &configsett)
+{
+
+  File configFileSett = SPIFFS.open(fileconfigsett, "r");
+
+  if (!configFileSett)
+  {
+    Serial.println("Gagal membuka fileconfigsett untuk dibaca");
+    return;
+  }
+
+  size_t size = configFileSett.size();
+  std::unique_ptr<char[]> buf(new char[size]);
+  configFileSett.readBytes(buf.get(), size);
+
+  DynamicJsonDocument doc(1024);
+  DeserializationError error = deserializeJson(doc, buf.get());
+
+  if (error)
+  {
+    Serial.println("Gagal parse fileconfigsett");
+    return;
+  }
+  configsett.fungsi = doc["fungsi"];
+  configsett.jpanel = doc["jpanel"];
+
+  configFileSett.close();
 }
 
 void loadJwsConfig(const char *fileconfigjws, Config &config)

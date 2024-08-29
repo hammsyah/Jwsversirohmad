@@ -1033,7 +1033,7 @@ const char setdisplay[] PROGMEM = R"=====(
         <p>Kercerahan: <span id="demo"> </span> </p>
 
         <form>
-            <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='250' onchange="setDisp()">Cerah
+            <label>Redup<input id="cerah" type='range' name='Cerah' min='1' max='11' onchange="setDisp()">Cerah
                 <br><br>
                <p>Display: <span id='panele'></span> Panel </p>
                <br>

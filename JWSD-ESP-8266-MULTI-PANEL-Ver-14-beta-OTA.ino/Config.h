@@ -132,7 +132,7 @@ void LoadDataAwal()
 
   if (strlen(configwifi.wifipassword) == 0)
   {
-    strlcpy(configwifi.wifipassword, "hamtronik77", sizeof(configwifi.wifipassword));
+    strlcpy(configwifi.wifipassword, "hamtronik7", sizeof(configwifi.wifipassword));
   }
 
   if (configdisp.cerah == 0)

@@ -1778,8 +1778,15 @@ void displaykusatu()
           Disp.drawRect(111, 0, 112, 5, 0, 0); // koordinat titik dua
           Disp.drawRect(111, 9, 112, 11, 0, 0);
         }
-      
+/*      
         if ((rMen == 10 && rDet == 30) || (rMen == 20 && rDet == 30) || (rMen == 30 && rDet == 30) || (rMen == 40 && rDet == 30) || (rMen == 50 && rDet == 30) || (rMen == 59 && rDet == 30) || (rMen == 5 && rDet == 30) || (rMen == 15 && rDet == 30) || (rMen == 25 && rDet == 30) || (rMen == 35 && rDet == 30) || (rMen == 45 && rDet == 30) || (rMen == 55 && rDet == 30))
+        {
+          langkah = 9;
+          berhenti = 0;
+          Disp.clear();
+        }
+*/
+         if (rMen % 2 == 0 && rDet == 30)
         {
           langkah = 9;
           berhenti = 0;

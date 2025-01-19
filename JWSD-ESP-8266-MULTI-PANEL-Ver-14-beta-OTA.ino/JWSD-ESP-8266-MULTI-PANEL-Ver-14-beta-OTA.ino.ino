@@ -197,6 +197,8 @@ http: // 192.168.2.1:8080/webota
             { server.send_P(200, "text/html", setdsetting); });
   server.on("/setting", HTTP_POST, handleSetting);
 
+ 
+ 
   server.on("/reboot", HTTP_GET, handleReboot);
   
   server.on("/xml", handleXML);

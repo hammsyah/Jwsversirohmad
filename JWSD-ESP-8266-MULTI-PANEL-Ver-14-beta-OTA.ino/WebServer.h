@@ -1,6 +1,6 @@
 ESP8266WebServer server(80);
 const char *password = "123456789";
-const char *mySsid = "wifi_jwsd";
+const char *mySsid = "jwsd_EditHamtronik";
 IPAddress local_ip(192, 168, 2, 1);
 IPAddress gateway(192, 168, 2, 1);
 IPAddress netmask(255, 255, 255, 0);

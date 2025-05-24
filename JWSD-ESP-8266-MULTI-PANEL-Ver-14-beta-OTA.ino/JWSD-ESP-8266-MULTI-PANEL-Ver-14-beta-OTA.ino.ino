@@ -43,10 +43,22 @@ UPDATE BY hamtronik.com
 pisah jadi beberapa file .h agar lebih mudah analisa programnya.
 optimasi sket
 
+FB: yuliamsyah adi
 31 Desember 2023
 
+wifi:
 
+password = 123456789
+Ssid = jwsd_EditHamtronik
+
+setting: buka browser chrome atau mozila atau lainya
+http://192.168.2.1
+
+untuk setting fungsi dan panel di:
+http://192.168.2.1/setdsetting
 */
+
+
 #include <WebOTA.h>
 #include <SPI.h>
 #include <FS.h>

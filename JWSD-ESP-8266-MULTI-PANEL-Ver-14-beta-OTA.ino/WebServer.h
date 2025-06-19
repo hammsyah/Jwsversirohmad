@@ -282,7 +282,7 @@ void handleSetting() //setting Panel, setting fungsi untuk rumah atau musola
   // timer0_detachInterrupt();
 
   String datadsett = server.arg("plain");
-
+  Serial.println(datadsett);
   DynamicJsonDocument doc(1024);
   DeserializationError error = deserializeJson(doc, datadsett);
   File configFileSett = SPIFFS.open(fileconfigsett, "w");
